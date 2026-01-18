@@ -1,0 +1,34 @@
+using System;
+
+// Afstand van het begin. Stappen.
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Type a Word:");
+        string input = Console.ReadLine();
+
+        string originalWord = input;
+
+        string wordToCheck = input.ToLower();
+
+        string reversedWord = "";
+
+        for (int i = wordToCheck.Length - 1; i >= 0; i--)
+        {
+            reversedWord += wordToCheck[i];
+        }
+
+        Console.WriteLine("Reversed Word: " + reversedWord);
+
+        if (reversedWord == wordToCheck)
+        {
+            Console.WriteLine("It is a palindrome!");
+        }
+        else
+        {
+            Console.WriteLine("It is not a palindrome.");
+        }
+    }
+}
