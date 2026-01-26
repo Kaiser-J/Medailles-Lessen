@@ -1,64 +1,40 @@
 using System;
-using System.Globalization;
 
-// BRONZE + SILVER (Goud Overgeslagen)
-
-Console.WriteLine("Age Assignment Has Now Started!");
-
-Console.WriteLine("Please enter your birth date (DD-MM-YYYY):");
-
-// Turns the user input into a string
-string birthDateInput = Console.ReadLine();
-
-
-// STRING → DATETIME
-
-DateTime birthDate = DateTime.ParseExact(
-    birthDateInput,                
-    "dd-MM-yyyy",                
-    CultureInfo.InvariantCulture // Learned on YouTube
-);
-
-// birthDate goes as a parameter to the function
-int age = CalculateAge(birthDate);
-
-Console.WriteLine($"You are {age} years old.");
-
-
-// Are we allowed To Vote?
-bool canVote = CanVote(age);
-
-if (canVote)
+namespace MedaillesSchoolOpdrachten
 {
-    Console.WriteLine("You are 18+ so you are allowed to vote.");
-}
-else
-{
-    Console.WriteLine("You are under 18, so you are NOT allowed to vote.");
-}
-
-
-// Functions
-static int CalculateAge(DateTime birthDate)
-{
-    // Vandaag (zonder tijd)
-    DateTime today = DateTime.Today;
-
-    int age = today.Year - birthDate.Year;
-
-    // We make a date for the birthday this year
-    DateTime birthdayThisYear = birthDate.AddYears(age);
-
-    if (today < birthdayThisYear)
+    internal class Opdracht4
     {
-        age--;
+        public void Start()
+        {
+            Console.WriteLine("Age Assignment Has Now Started!");
+            Console.Write("Enter your birth year: ");
+
+            string input = Console.ReadLine();
+
+            int birthYear;
+            bool ok = int.TryParse(input, out birthYear);
+
+            if (!ok)
+            {
+                Console.WriteLine("That is not a number. Please type a year like 2005.");
+                return;
+            }
+
+            int currentYear = DateTime.Now.Year;
+            int age = currentYear - birthYear;
+
+            if (age < 0)
+            {
+                Console.WriteLine("That year is in the future. Try again.");
+                return;
+            }
+
+            Console.WriteLine("Your age is: " + age);
+
+            if (age >= 18)
+                Console.WriteLine("You are 18+ so you can vote!");
+            else
+                Console.WriteLine("You are under 18 so you cannot vote yet.");
+        }
     }
-    return age;
-}
-
-
-// Can the person Vote?
-static bool CanVote(int age)
-{
-    return age >= 18;
 }
